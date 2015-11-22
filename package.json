@@ -1,0 +1,19 @@
+{
+  "name": "tickets-express",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mr-deer/tickets-express.git"
+  },
+  "author": "Aliaksei Krasikau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mr-deer/tickets-express/issues"
+  },
+  "homepage": "https://github.com/mr-deer/tickets-express#readme"
+}
