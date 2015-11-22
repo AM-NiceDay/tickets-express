@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
+app.get('/secured', ensureAuthenticated, (req, res) => {
+  res.send('secured');
+});
+
 app.post('/users', (req, res) => {
   User.create({
     name: req.body.name,
@@ -53,5 +57,23 @@ app.post('/authenticate', (req, res) => {
       });
     });
 });
+
+function ensureAuthenticated(req, res, next) {
+  let token = req.body.token || req.headers['x-access-token'];
+
+  if (!token) {
+    return res.sendStatus(403);
+  }
+
+  jwt.verify(token, config.secret, function(err, user) {
+    if (err) {
+      return res.sendStatus(403);
+    }
+
+    req.user = user;
+    next();
+  });
+}
+
 
 app.listen(3000);
