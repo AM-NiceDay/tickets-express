@@ -1,18 +1,16 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import apiRouter from './routes/api';
 import config from './config';
-
-import morgan from 'morgan';
-import bodyParser from 'body-parser';
+import configExpress from './config/express';
+import configMongoose from './config/mongoose';
+import apiRouter from './routes/api';
 
 const app = express();
 
-mongoose.connect(config.mongodbURL);
-mongoose.Promise = Promise;
+configExpress(app);
+let connection = configMongoose(mongoose, config).connection;
 
-app.use(morgan('dev'));
-app.use(bodyParser.json());
+connection.on('error', console.log);
 
 app.use(apiRouter);
 
