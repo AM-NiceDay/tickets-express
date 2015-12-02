@@ -1,7 +1,7 @@
 import {Router} from 'express';
 import config from '../config';
 import User from '../models/user';
-import jwt from 'jsonwebtoken';
+import {authenticate, ensureAuthenticated} from '../controllers/authController';
 
 const router = Router();
 
@@ -25,43 +25,6 @@ router.post('/users', (req, res) => {
     }));
 });
 
-router.post('/authenticate', (req, res) => {
-  User.findOne({
-      phoneNumber: req.body.phoneNumber
-    })
-    .then(user => {
-      if (!user || user.password !== req.body.password) {
-        return res.sendStatus(403);
-      }
-      let userInfo = {
-        id: user._id
-      }
-      let token = jwt.sign(userInfo, config.secret, {
-        expiresIn: 86400
-      });
-
-      res.json({
-        user,
-        token
-      });
-    });
-});
-
-function ensureAuthenticated(req, res, next) {
-  let token = req.body.token || req.headers['x-access-token'];
-
-  if (!token) {
-    return res.sendStatus(403);
-  }
-
-  jwt.verify(token, config.secret, function(err, user) {
-    if (err) {
-      return res.sendStatus(403);
-    }
-
-    req.user = user;
-    next();
-  });
-}
+router.post('/authenticate', authenticate);
 
 export default router;
