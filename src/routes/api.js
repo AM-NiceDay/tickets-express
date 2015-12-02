@@ -1,7 +1,6 @@
 import {Router} from 'express';
-import config from '../config';
-import User from '../models/user';
 import {authenticate, ensureAuthenticated} from '../controllers/authController';
+import {createUser} from '../controllers/userController';
 
 const router = Router();
 
@@ -13,17 +12,7 @@ router.get('/secured', ensureAuthenticated, (req, res) => {
   res.send('secured');
 });
 
-router.post('/users', (req, res) => {
-  User.create({
-      name: req.body.name,
-      phoneNumber: req.body.phoneNumber,
-      password: req.body.password,
-      email: req.body.email
-    })
-    .then(user => res.json({
-      user
-    }));
-});
+router.post('/users', createUser);
 
 router.post('/authenticate', authenticate);
 
