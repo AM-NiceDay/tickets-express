@@ -3,6 +3,10 @@ import User from '../models/user';
 import config from '../config';
 
 export function authenticate(req, res) {
+  if (!req.body.phoneNumber || !req.body.password) {
+    return res.sendStatus(400);
+  }
+
   User.findOne({
       phoneNumber: req.body.phoneNumber
     })
