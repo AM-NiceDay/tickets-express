@@ -5,5 +5,7 @@ import cors from 'cors';
 export default function(app) {
   app.use(morgan('dev'));
   app.use(bodyParser.json());
-  app.use(cors());
+  app.use(cors({
+    origin: 'http://localhost:8080'
+  }));
 }

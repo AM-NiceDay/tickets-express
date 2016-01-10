@@ -8,6 +8,9 @@ export function getBus(req, res) {
       }
 
       res.json(bus);
+    })
+    .catch(err => {
+      res.sendStatus(404);
     });
 }
 
