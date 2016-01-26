@@ -1,4 +1,5 @@
 import Bus from '../models/bus';
+import CityBusSequences from '../models/cityBusSequences';
 
 export function getBus(req, res) {
   Bus.findOne({ _id: req.params.busId })
@@ -22,14 +23,22 @@ export function getBuses(req, res) {
 }
 
 export function createBus(req, res) {
-  const { route, routeName } = req.body;
+  const { route, routeName, cityId } = req.body;
 
-  Bus.create({
-    route,
-    routeName
-  })
+  CityBusSequences.getSeqAndIncrement(cityId)
+    .then(seq => {
+      return Bus.create({
+        _id: seq,
+        route,
+        routeName,
+        cityId: cityId
+      });
+    })
     .then(bus => {
       res.json(bus);
+    })
+    .catch(err => {
+      console.log(err);
     });
 }
 
