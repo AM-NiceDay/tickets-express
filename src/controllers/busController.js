@@ -2,7 +2,12 @@ import Bus from '../models/bus';
 import CityBusSequences from '../models/cityBusSequences';
 
 export function getBus(req, res) {
-  Bus.findOne({ _id: req.params.busId })
+  const { busId, cityId } = req.params;
+
+  Bus.findOne({
+    _id: busId,
+    cityId
+  })
     .then(bus => {
       if (!bus) {
         res.sendStatus(404);
@@ -16,14 +21,19 @@ export function getBus(req, res) {
 }
 
 export function getBuses(req, res) {
-  Bus.find()
+  const { cityId } = req.params;
+
+  Bus.find({
+    cityId
+  })
     .then(buses => {
       res.json(buses);
     });
 }
 
 export function createBus(req, res) {
-  const { route, routeName, cityId } = req.body;
+  const { route, routeName } = req.body;
+  const { cityId } = req.params;
 
   CityBusSequences.getSeqAndIncrement(cityId)
     .then(seq => {
@@ -43,7 +53,12 @@ export function createBus(req, res) {
 }
 
 export function removeBus(req, res) {
-  Bus.remove({ _id: req.params.busId })
+  const { busId, cityId } = req.params;
+
+  Bus.remove({
+    _id: busId,
+    cityId
+  })
     .then(() => {
       res.sendStatus(204);
     });

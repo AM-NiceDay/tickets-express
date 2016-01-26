@@ -1,7 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 const BusSchema = Schema({
-  _id: Number,
+  _id: {
+    type: Number,
+    unique: false
+  },
   route: Number,
   routeName: String,
   cityId: Schema.Types.ObjectId

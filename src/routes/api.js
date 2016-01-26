@@ -16,10 +16,10 @@ router.get('/cities', getCities);
 router.post('/cities', createCity);
 router.delete('/cities/:id', removeCity);
 
-router.get('/buses/:busId', getBus);
-router.get('/buses', getBuses);
-router.post('/buses', createBus);
-router.delete('/buses/:busId', removeBus);
+router.get('/cities/:cityId/buses/:busId', getBus);
+router.get('/cities/:cityId/buses', getBuses);
+router.post('/cities/:cityId/buses', createBus);
+router.delete('/cities/:cityId/buses/:busId', removeBus);
 
 router.get('/cities/:cityId/buses/:busId/tickets/:ticketId', getTicket);
 router.get('/cities/:cityId/buses/:busId/tickets', getTickets);
