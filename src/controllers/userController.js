@@ -1,11 +1,14 @@
 import User from '../models/user';
 
 export function createUser(req, res) {
+  const { name, phoneNumber, password, email, cityId } = req.body;
+
   User.create({
-      name: req.body.name,
-      phoneNumber: req.body.phoneNumber,
-      password: req.body.password,
-      email: req.body.email
+      name,
+      phoneNumber,
+      password,
+      email,
+      cityId
     })
     .then(user => res.json({
       user
