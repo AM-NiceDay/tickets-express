@@ -3,7 +3,10 @@ import _ from 'lodash';
 import moment from 'moment';
 
 const TicketSchema = Schema({
-  _id: String,
+  _id: {
+    type: String,
+    unique: false
+  },
   userId: Schema.Types.ObjectId,
   busId: Number,
   cityId: Schema.Types.ObjectId,
