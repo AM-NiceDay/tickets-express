@@ -17,14 +17,14 @@ const TicketSchema = Schema({
 });
 
 TicketSchema.pre('save', function(next) {
-  const today = moment().startOf('day');
-  const tomorrow = today.clone().add(1, 'day');
+  const now = moment();
+  const threeHoursAgo = now.clone().subtract(3, 'hour');
   this.constructor.find({
     busId: this.busId,
     cityId: this.cityId,
     created: {
-      $gte: today,
-      $lt: tomorrow
+      $gte: threeHoursAgo,
+      $lt: now
     }
   })
     .then(tickets => {
@@ -44,9 +44,9 @@ TicketSchema.pre('save', function(next) {
 
 function generateId() {
   var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  var possible = "ABCDEFGHIJKLMNPQRSTUVWXYZ0123456789";
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 4; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
 
