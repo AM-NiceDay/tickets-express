@@ -14,4 +14,8 @@ connection.on('error', console.log);
 
 app.use(apiRouter);
 
+app.use((err, req, res, next) => {
+  console.log(err);
+});
+
 app.listen(3000);

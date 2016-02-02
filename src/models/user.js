@@ -4,8 +4,7 @@ let userSchema = new Schema({
   name: String,
   phoneNumber: String,
   password: String,
-  email: String,
-  cityId: Schema.Types.ObjectId
+  email: String
 });
 
 export default mongoose.model('User', userSchema);

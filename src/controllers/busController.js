@@ -35,10 +35,10 @@ export function createBus(req, res) {
   const { route, routeName } = req.body;
   const { cityId } = req.params;
 
-  CityBusSequences.getSeqAndIncrement(cityId)
-    .then(seq => {
+  CityBusSequences.findOneAndUpdate({ cityId: cityId }, { $inc: { seq: 1 } }, { upsert: true, new: true })
+    .then(citySequence => {
       return Bus.create({
-        _id: seq,
+        _id: citySequence.seq,
         route,
         routeName,
         cityId: cityId
@@ -46,9 +46,6 @@ export function createBus(req, res) {
     })
     .then(bus => {
       res.json(bus);
-    })
-    .catch(err => {
-      console.log(err);
     });
 }
 

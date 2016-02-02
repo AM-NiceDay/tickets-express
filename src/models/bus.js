@@ -7,7 +7,7 @@ const BusSchema = Schema({
   },
   route: Number,
   routeName: String,
-  cityId: Schema.Types.ObjectId
+  cityId: Number
 });
 
 export default mongoose.model('Bus', BusSchema);

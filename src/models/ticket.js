@@ -9,7 +9,7 @@ const TicketSchema = Schema({
   },
   userId: Schema.Types.ObjectId,
   busId: Number,
-  cityId: Schema.Types.ObjectId,
+  cityId: Number,
   created: {
     type: Date,
     default: new Date()
