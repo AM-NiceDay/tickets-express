@@ -11,19 +11,19 @@ router.post('/users', createUser);
 
 router.post('/authenticate', authenticate);
 
-router.get('/cities/:id', getCity);
-router.get('/cities', getCities);
-router.post('/cities', createCity);
-router.delete('/cities/:id', removeCity);
+router.get('/cities/:id', ensureAuthenticated, getCity);
+router.get('/cities', ensureAuthenticated, getCities);
+router.post('/cities', ensureAuthenticated, createCity);
+router.delete('/cities/:id', ensureAuthenticated, removeCity);
 
-router.get('/cities/:cityId/buses/:busId', getBus);
-router.get('/cities/:cityId/buses', getBuses);
-router.post('/cities/:cityId/buses', createBus);
-router.delete('/cities/:cityId/buses/:busId', removeBus);
+router.get('/cities/:cityId/buses/:busId', ensureAuthenticated, getBus);
+router.get('/cities/:cityId/buses', ensureAuthenticated, getBuses);
+router.post('/cities/:cityId/buses', ensureAuthenticated, createBus);
+router.delete('/cities/:cityId/buses/:busId', ensureAuthenticated, removeBus);
 
-router.get('/cities/:cityId/buses/:busId/tickets/:ticketId', getTicket);
-router.get('/cities/:cityId/buses/:busId/tickets', getTickets);
-router.post('/cities/:cityId/buses/:busId/tickets', createTicket);
-router.delete('/cities/:cityId/buses/:busId/tickets/:ticketId', removeTicket);
+router.get('/cities/:cityId/buses/:busId/tickets/:ticketId', ensureAuthenticated, getTicket);
+router.get('/cities/:cityId/buses/:busId/tickets', ensureAuthenticated, getTickets);
+router.post('/cities/:cityId/buses/:busId/tickets', ensureAuthenticated, createTicket);
+router.delete('/cities/:cityId/buses/:busId/tickets/:ticketId', ensureAuthenticated, removeTicket);
 
 export default router;
