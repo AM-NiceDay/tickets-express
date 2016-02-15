@@ -3,7 +3,7 @@ import { authenticate, ensureAuthenticated } from '../controllers/authController
 import { createUser } from '../controllers/userController';
 import { getCity, getCities, createCity, removeCity } from '../controllers/cityController';
 import { getBus, getBuses, createBus, removeBus } from '../controllers/busController';
-import { getTicket, getTickets, createTicket, removeTicket } from '../controllers/ticketController';
+import { getLastTicket, getTicket, getTickets, createTicket, removeTicket } from '../controllers/ticketController';
 
 const router = Router();
 
@@ -21,6 +21,7 @@ router.get('/cities/:cityId/buses', ensureAuthenticated, getBuses);
 router.post('/cities/:cityId/buses', ensureAuthenticated, createBus);
 router.delete('/cities/:cityId/buses/:busId', ensureAuthenticated, removeBus);
 
+router.get('/users/:userId/tickets', ensureAuthenticated, getLastTicket);
 router.get('/cities/:cityId/buses/:busId/tickets/:ticketId', ensureAuthenticated, getTicket);
 router.get('/cities/:cityId/buses/:busId/tickets', ensureAuthenticated, getTickets);
 router.post('/cities/:cityId/buses/:busId/tickets', ensureAuthenticated, createTicket);

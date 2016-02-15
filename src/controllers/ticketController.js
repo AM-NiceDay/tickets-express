@@ -1,5 +1,18 @@
 import Ticket from '../models/ticket';
 
+export function getLastTicket(req, res) {
+  const { userId } = req.params;
+  const { limit } = req.query;
+
+  Ticket.find({ userId: userId })
+    .sort('-created')
+    .limit(limit)
+    .exec()
+    .then(tickets => {
+      res.json(tickets);
+    });
+}
+
 export function getTicket(req, res) {
   const { ticketId, busId, cityId } = req.params;
 
