@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import { authenticate, ensureAuthenticated } from '../controllers/authController';
-import { createUser } from '../controllers/userController';
+import { getUser, createUser } from '../controllers/userController';
 import { getCity, getCities, createCity, removeCity } from '../controllers/cityController';
 import { getBus, getBuses, createBus, removeBus } from '../controllers/busController';
 import { getLastTicket, getTicket, getTickets, createTicket, removeTicket } from '../controllers/ticketController';
 
 const router = Router();
 
+router.get('/users/:phoneNumber', getUser);
 router.post('/users', createUser);
 
 router.post('/authenticate', authenticate);

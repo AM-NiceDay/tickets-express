@@ -2,6 +2,20 @@ import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import config from '../config';
 
+export function getUser(req, res) {
+  const { phoneNumber } = req.params;
+
+  User.findOne({ phoneNumber })
+    .then(user => {
+      res.json({
+        user: {
+          phoneNumber: user.phoneNumber,
+          name: user.name
+        }
+      });
+    });
+}
+
 export function createUser(req, res) {
   const { name, phoneNumber, password, email, cityId } = req.body;
 
