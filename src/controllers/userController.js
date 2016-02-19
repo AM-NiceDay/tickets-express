@@ -17,14 +17,13 @@ export function getUser(req, res) {
 }
 
 export function createUser(req, res) {
-  const { name, phoneNumber, password, email, cityId } = req.body;
+  const { phoneNumber, name, lastName, password } = req.body;
 
   User.create({
-      name,
       phoneNumber,
-      password,
-      email,
-      cityId
+      name,
+      lastName,
+      password
     })
     .then(user => {
       let userInfo = {
