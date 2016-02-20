@@ -8,7 +8,7 @@ const TicketSchema = Schema({
     unique: false
   },
   userId: Schema.Types.ObjectId,
-  busId: Number,
+  bus: { type: Number, ref: 'Bus' },
   cityId: Number,
   created: {
     type: Date,
@@ -20,7 +20,7 @@ TicketSchema.pre('save', function(next) {
   const now = moment();
   const threeHoursAgo = now.clone().subtract(3, 'hour');
   this.constructor.find({
-    busId: this.busId,
+    bus: this.busId,
     cityId: this.cityId,
     created: {
       $gte: threeHoursAgo,

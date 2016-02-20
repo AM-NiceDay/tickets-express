@@ -5,6 +5,7 @@ export function getLastTicket(req, res) {
   const { limit } = req.query;
 
   Ticket.find({ userId: userId })
+    .populate('bus')
     .sort('-created')
     .limit(limit)
     .exec()
@@ -18,9 +19,11 @@ export function getTicket(req, res) {
 
   Ticket.findOne({
     _id: ticketId,
-    busId,
+    bus: busId,
     cityId
   })
+    .populate('bus')
+    .exec()
     .then(ticket => {
       if (!ticket) {
         res.sendStatus(404);
@@ -38,9 +41,11 @@ export function getTickets(req, res) {
 
   console.log(busId, cityId);
   Ticket.find({
-    busId,
+    bus: busId,
     cityId
   })
+    .populate('bus')
+    .exec()
     .then(tickets => {
       res.json(tickets);
     });
@@ -52,9 +57,12 @@ export function createTicket(req, res) {
 
   Ticket.create({
     userId,
-    busId,
+    bus: busId,
     cityId
   })
+    .then(ticket => {
+      return Ticket.populate(ticket, { path: 'bus' });
+    })
     .then(ticket => {
       res.json(ticket);
     });
@@ -65,7 +73,7 @@ export function removeTicket(req, res) {
 
   Ticket.remove({
     _id: ticketId,
-    busId,
+    bus: busId,
     cityId
   })
     .then(() => {
