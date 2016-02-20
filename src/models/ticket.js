@@ -12,7 +12,7 @@ const TicketSchema = Schema({
   cityId: Number,
   created: {
     type: Date,
-    default: new Date()
+    default: () => new Date()
   }
 });
 
