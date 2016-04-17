@@ -4,6 +4,7 @@ import { getUser, createUser } from '../controllers/userController';
 import { getCity, getCities, createCity, removeCity } from '../controllers/cityController';
 import { getBus, getBuses, createBus, removeBus } from '../controllers/busController';
 import { getLastTicket, getTicket, getTickets, createTicket, removeTicket } from '../controllers/ticketController';
+import { createQuestion } from '../controllers/questionController';
 
 const router = Router();
 
@@ -27,5 +28,7 @@ router.get('/cities/:cityId/buses/:busId/tickets/:ticketId', ensureAuthenticated
 router.get('/cities/:cityId/buses/:busId/tickets', ensureAuthenticated, getTickets);
 router.post('/cities/:cityId/buses/:busId/tickets', ensureAuthenticated, createTicket);
 router.delete('/cities/:cityId/buses/:busId/tickets/:ticketId', ensureAuthenticated, removeTicket);
+
+router.post('/questions', ensureAuthenticated, createQuestion);
 
 export default router;
